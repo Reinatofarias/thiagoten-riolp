@@ -1,11 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { formatPreco } from '@/lib/utils';
 import LeadForm from './LeadForm';
 
 export default function ImovelSidebarClient({ imovel }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   useEffect(() => {
     if (isModalOpen) {
@@ -44,7 +51,7 @@ export default function ImovelSidebarClient({ imovel }) {
         </div>
       </div>
 
-      {isModalOpen && (
+      {isModalOpen && mounted && createPortal(
         <div className="modal-backdrop" onClick={handleBackdropClick}>
           <div className="modal-content glass-card animate-fade-in">
             <button className="modal-close" onClick={toggleModal} aria-label="Fechar modal">
@@ -64,7 +71,8 @@ export default function ImovelSidebarClient({ imovel }) {
             </div>
             <LeadForm imovelTitulo={`${imovel.titulo} — ${formatPreco(imovel.preco)}`} />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </aside>
   );

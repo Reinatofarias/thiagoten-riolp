@@ -15,8 +15,8 @@ export default async function Home() {
       <Header />
       <main>
         <Hero />
-        <Processo />
         <ImoveisGrid imoveis={imoveis} />
+        <Processo />
       </main>
       <Footer />
     </>
