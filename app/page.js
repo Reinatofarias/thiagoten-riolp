@@ -11,36 +11,7 @@ import WhatsAppFab from '@/components/WhatsAppFab';
 export const revalidate = 60; // Revalidate every minute
 
 export default async function Home() {
-  // Em um cenário real com Supabase configurado, descomente:
-  // const imoveis = await getImoveisDestaque();
-  
-  // Dados mockados enquanto o Supabase não está configurado:
-  const imoveis = [
-    {
-      id: "apartamento-boa-viagem-3quartos",
-      slug: "apartamento-boa-viagem-3quartos",
-      titulo: "Apartamento em Boa Viagem",
-      subtitulo: "3 quartos, 1 suíte — Vista parcial mar",
-      tipo: "Apartamento",
-      preco: 485000,
-      quartos: 3,
-      vagas: 1,
-      area: "85m²",
-      imagens: ["/images/placeholder-imovel.jpg"]
-    },
-    {
-      id: "casa-piedade-4quartos",
-      slug: "casa-piedade-4quartos",
-      titulo: "Casa Ampla em Piedade",
-      subtitulo: "4 quartos, 2 suítes — Terreno de 300m²",
-      tipo: "Casa",
-      preco: 620000,
-      quartos: 4,
-      vagas: 2,
-      area: "180m²",
-      imagens: ["/images/placeholder-imovel.jpg"]
-    }
-  ];
+  const imoveis = await getImoveisDestaque();
 
   return (
     <>

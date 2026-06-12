@@ -11,54 +11,22 @@ import { formatPreco } from '@/lib/utils';
 
 // Isso gera as rotas estáticas para os imóveis no build time
 export async function generateStaticParams() {
-  // Em cenário real:
-  // const slugs = await getAllSlugs();
-  // return slugs.map((slug) => ({ slug }));
-  
-  return [
-    { slug: 'apartamento-boa-viagem-3quartos' },
-    { slug: 'casa-piedade-4quartos' },
-    { slug: 'cobertura-pina-2suites' },
-    { slug: 'apartamento-torre-2quartos' }
-  ];
+  const slugs = await getAllSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {
-  // Em cenário real com Supabase:
-  // const imovel = await getImovelBySlug(params.slug);
-  // if (!imovel) return { title: 'Imóvel não encontrado' };
+  const imovel = await getImovelBySlug(params.slug);
+  if (!imovel) return { title: 'Imóvel não encontrado' };
 
-  // Mock
-  const titulo = "Apartamento em Boa Viagem";
-  
   return {
-    title: `${titulo} | Thiago Tenório Corretor`,
-    description: `Detalhes sobre ${titulo}. Agende uma visita.`,
+    title: `${imovel.titulo} | Thiago Tenório Corretor`,
+    description: `Detalhes sobre ${imovel.titulo}. Agende uma visita.`,
   };
 }
 
 export default async function ImovelPage({ params }) {
-  // Em cenário real:
-  // const imovel = await getImovelBySlug(params.slug);
-  
-  // Mock fallback:
-  const imovel = {
-    id: "apartamento-boa-viagem-3quartos",
-    slug: params.slug,
-    titulo: "Apartamento em Boa Viagem",
-    subtitulo: "3 quartos, 1 suíte — Vista parcial mar",
-    tipo: "Apartamento",
-    preco: 485000,
-    endereco: "Rua dos Navegantes, Boa Viagem — Recife, PE",
-    quartos: 3,
-    suites: 1,
-    banheiros: 2,
-    vagas: 1,
-    area: "85m²",
-    descricao: "Apartamento completamente reformado com acabamentos de alto padrão. Sala ampla com varanda e vista parcial para o mar. Cozinha planejada com bancada em granito. Piso em porcelanato em todos os ambientes. Condomínio com infraestrutura completa.",
-    caracteristicas: ["Piscina", "Academia", "Salão de festas", "Portaria 24h", "Próximo à praia", "Elevador"],
-    imagens: ["/images/placeholder-imovel.jpg"]
-  };
+  const imovel = await getImovelBySlug(params.slug);
 
   if (!imovel) {
     notFound();
