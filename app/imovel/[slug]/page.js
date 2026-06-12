@@ -15,9 +15,36 @@ export async function generateMetadata({ params }) {
   const imovel = await getImovelBySlug(slug);
   if (!imovel) return { title: 'Imóvel não encontrado' };
 
+  const formattedPrice = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 }).format(imovel.preco);
+  const title = `${imovel.titulo} — ${formattedPrice}`;
+  const description = `${imovel.tipo} no bairro ${imovel.bairro || 'Recife'}. ${imovel.subtitulo || ''} ${imovel.descricao ? imovel.descricao.substring(0, 150) + '...' : ''}`;
+  const firstImage = imovel.imagens && imovel.imagens.length > 0 ? imovel.imagens[0] : '/images/share-preview.png';
+
   return {
-    title: `${imovel.titulo} | Thiago Tenório Corretor`,
-    description: `Detalhes sobre ${imovel.titulo}. Agende uma visita.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://www.thiagotenorioimoveis.com.br/imovel/${slug}`,
+      siteName: 'Thiago Tenório Imóveis',
+      images: [
+        {
+          url: firstImage,
+          width: 1200,
+          height: 630,
+          alt: imovel.titulo,
+        }
+      ],
+      locale: 'pt_BR',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [firstImage],
+    }
   };
 }
 
