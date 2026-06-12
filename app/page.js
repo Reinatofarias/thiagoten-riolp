@@ -8,7 +8,7 @@ import LeadForm from '@/components/LeadForm';
 import Footer from '@/components/Footer';
 import WhatsAppFab from '@/components/WhatsAppFab';
 
-export const revalidate = 60; // Revalidate every minute
+export const revalidate = 0; // Disable cache so new properties show instantly
 
 export default async function Home() {
   const imoveis = await getImoveisDestaque();

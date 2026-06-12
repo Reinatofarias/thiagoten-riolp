@@ -9,11 +9,7 @@ import WhatsAppFab from '@/components/WhatsAppFab';
 import Link from 'next/link';
 import { formatPreco } from '@/lib/utils';
 
-// Isso gera as rotas estáticas para os imóveis no build time
-export async function generateStaticParams() {
-  const slugs = await getAllSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
+export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
   const imovel = await getImovelBySlug(params.slug);
