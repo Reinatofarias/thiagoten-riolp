@@ -17,10 +17,7 @@ export default function Header() {
       <div className="container header-inner">
         <Link href="/" className="logo" aria-label="Thiago Tenório — Corretor de Imóveis">
           <div className="logo-icon">
-            <svg viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M30 4L52 36H8L30 4Z" stroke="#E3AE45" strokeWidth="2" fill="none"/>
-              <path d="M38 14L54 38H22L38 14Z" stroke="#9A6621" strokeWidth="2" fill="none"/>
-            </svg>
+            <img src="/images/Logo.PNG" alt="Thiago Tenório Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
           <div className="logo-text">
             <span className="logo-name">Thiago Tenório</span>
