@@ -1,0 +1,187 @@
+'use client';
+
+import { useState } from 'react';
+import { validateField, sendToWebhook, getWhatsAppUrl, CONFIG } from '@/lib/utils';
+
+export default function LeadForm({ imovelTitulo = '' }) {
+  const [formData, setFormData] = useState({ nome: '', telefone: '', cidade: '' });
+  const [errors, setErrors] = useState({ nome: '', telefone: '', cidade: '' });
+  const [touched, setTouched] = useState({ nome: false, telefone: false, cidade: false });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  // Honeypot
+  const [website, setWebsite] = useState('');
+
+  const handleMask = (e) => {
+    let value = e.target.value.replace(/\D/g, '');
+    value = value.substring(0, 11);
+
+    if (value.length > 6) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    } else if (value.length > 2) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
+
+    setFormData({ ...formData, telefone: value });
+    if (touched.telefone) {
+      setErrors({ ...errors, telefone: validateField('telefone', value) });
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (touched[name]) {
+      setErrors({ ...errors, [name]: validateField(name, value) });
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched({ ...touched, [name]: true });
+    setErrors({ ...errors, [name]: validateField(name, value) });
+  };
+
+  const isFormValid = () => {
+    const nomeError = validateField('nome', formData.nome);
+    const telefoneError = validateField('telefone', formData.telefone);
+    const cidadeError = validateField('cidade', formData.cidade);
+    return !nomeError && !telefoneError && !cidadeError && formData.nome && formData.telefone && formData.cidade;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Honeypot check
+    if (website) return;
+
+    // Validate all
+    const newErrors = {
+      nome: validateField('nome', formData.nome),
+      telefone: validateField('telefone', formData.telefone),
+      cidade: validateField('cidade', formData.cidade),
+    };
+    setErrors(newErrors);
+    setTouched({ nome: true, telefone: true, cidade: true });
+
+    if (newErrors.nome || newErrors.telefone || newErrors.cidade) return;
+
+    setLoading(true);
+
+    const payload = {
+      ...formData,
+      imovel: imovelTitulo,
+    };
+
+    // 1. Send to Webhook (fire-and-forget)
+    sendToWebhook(payload);
+
+    // 2. Visual delay
+    await new Promise((resolve) => setTimeout(resolve, CONFIG.REDIRECT_DELAY));
+
+    // 3. Success state
+    setSuccess(true);
+    setLoading(false);
+
+    // 4. Redirect WhatsApp
+    setTimeout(() => {
+      window.open(getWhatsAppUrl(payload), '_blank');
+    }, 800);
+  };
+
+  if (success) {
+    return (
+      <div className="form-success show">
+        <div className="form-success-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Dados Enviados!</h3>
+        <p>Estou te redirecionando para o WhatsApp...</p>
+      </div>
+    );
+  }
+
+  return (
+    <form id="lead-form" onSubmit={handleSubmit} noValidate>
+      {/* Honeypot */}
+      <input
+        type="text"
+        name="website"
+        className="hp-field"
+        tabIndex="-1"
+        autoComplete="off"
+        aria-hidden="true"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
+      />
+
+      {/* Nome */}
+      <div className={`form-group ${touched.nome ? (errors.nome ? 'invalid-group' : 'valid-group') : ''}`}>
+        <label htmlFor="input-nome">Seu Nome</label>
+        <input
+          type="text"
+          id="input-nome"
+          name="nome"
+          placeholder="Como posso te chamar?"
+          value={formData.nome}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          required
+          autoComplete="name"
+          className={touched.nome ? (errors.nome ? 'invalid' : 'valid') : ''}
+        />
+        <span className="error-msg" role="alert" aria-live="polite">{errors.nome}</span>
+      </div>
+
+      {/* Telefone */}
+      <div className={`form-group ${touched.telefone ? (errors.telefone ? 'invalid-group' : 'valid-group') : ''}`}>
+        <label htmlFor="input-telefone">Seu Telefone</label>
+        <input
+          type="tel"
+          id="input-telefone"
+          name="telefone"
+          placeholder="(00) 00000-0000"
+          value={formData.telefone}
+          onChange={handleMask}
+          onBlur={handleBlur}
+          required
+          autoComplete="tel"
+          className={touched.telefone ? (errors.telefone ? 'invalid' : 'valid') : ''}
+        />
+        <span className="error-msg" role="alert" aria-live="polite">{errors.telefone}</span>
+      </div>
+
+      {/* Cidade */}
+      <div className={`form-group ${touched.cidade ? (errors.cidade ? 'invalid-group' : 'valid-group') : ''}`}>
+        <label htmlFor="input-cidade">Sua Cidade</label>
+        <input
+          type="text"
+          id="input-cidade"
+          name="cidade"
+          placeholder="Em qual cidade você busca imóvel?"
+          value={formData.cidade}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          required
+          autoComplete="address-level2"
+          className={touched.cidade ? (errors.cidade ? 'invalid' : 'valid') : ''}
+        />
+        <span className="error-msg" role="alert" aria-live="polite">{errors.cidade}</span>
+      </div>
+
+      {/* Submit */}
+      <button type="submit" id="btn-submit" className={`btn btn-primary btn-submit ${loading ? 'loading' : ''}`} disabled={!isFormValid() || loading}>
+        <span className="btn-text">Quero Ser Atendido Agora →</span>
+        {loading && <span className="btn-loader" aria-hidden="true"></span>}
+      </button>
+
+      <div className="form-guarantee">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Seus dados estão seguros. Sem spam. Sem compartilhamento.</span>
+      </div>
+    </form>
+  );
+}
