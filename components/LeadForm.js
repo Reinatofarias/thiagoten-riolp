@@ -119,13 +119,12 @@ export default function LeadForm({ imovelTitulo = '' }) {
       />
 
       {/* Nome */}
-      <div className={`form-group ${touched.nome ? (errors.nome ? 'invalid-group' : 'valid-group') : ''}`}>
-        <label htmlFor="input-nome">Seu Nome</label>
+      <div className={`form-group floating-group ${touched.nome ? (errors.nome ? 'invalid-group' : 'valid-group') : ''}`}>
         <input
           type="text"
           id="input-nome"
           name="nome"
-          placeholder="Como posso te chamar?"
+          placeholder=" "
           value={formData.nome}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -133,17 +132,17 @@ export default function LeadForm({ imovelTitulo = '' }) {
           autoComplete="name"
           className={touched.nome ? (errors.nome ? 'invalid' : 'valid') : ''}
         />
+        <label htmlFor="input-nome">Seu Nome</label>
         <span className="error-msg" role="alert" aria-live="polite">{errors.nome}</span>
       </div>
 
       {/* Telefone */}
-      <div className={`form-group ${touched.telefone ? (errors.telefone ? 'invalid-group' : 'valid-group') : ''}`}>
-        <label htmlFor="input-telefone">Seu Telefone</label>
+      <div className={`form-group floating-group ${touched.telefone ? (errors.telefone ? 'invalid-group' : 'valid-group') : ''}`}>
         <input
           type="tel"
           id="input-telefone"
           name="telefone"
-          placeholder="(00) 00000-0000"
+          placeholder=" "
           value={formData.telefone}
           onChange={handleMask}
           onBlur={handleBlur}
@@ -151,17 +150,17 @@ export default function LeadForm({ imovelTitulo = '' }) {
           autoComplete="tel"
           className={touched.telefone ? (errors.telefone ? 'invalid' : 'valid') : ''}
         />
+        <label htmlFor="input-telefone">Seu Telefone</label>
         <span className="error-msg" role="alert" aria-live="polite">{errors.telefone}</span>
       </div>
 
       {/* Cidade */}
-      <div className={`form-group ${touched.cidade ? (errors.cidade ? 'invalid-group' : 'valid-group') : ''}`}>
-        <label htmlFor="input-cidade">Sua Cidade</label>
+      <div className={`form-group floating-group ${touched.cidade ? (errors.cidade ? 'invalid-group' : 'valid-group') : ''}`}>
         <input
           type="text"
           id="input-cidade"
           name="cidade"
-          placeholder="Em qual cidade você busca imóvel?"
+          placeholder=" "
           value={formData.cidade}
           onChange={handleChange}
           onBlur={handleBlur}
@@ -169,6 +168,7 @@ export default function LeadForm({ imovelTitulo = '' }) {
           autoComplete="address-level2"
           className={touched.cidade ? (errors.cidade ? 'invalid' : 'valid') : ''}
         />
+        <label htmlFor="input-cidade">Sua Cidade</label>
         <span className="error-msg" role="alert" aria-live="polite">{errors.cidade}</span>
       </div>
 
@@ -182,6 +182,7 @@ export default function LeadForm({ imovelTitulo = '' }) {
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         <span>Seus dados estão seguros. Sem spam. Sem compartilhamento.</span>
       </div>
+
     </form>
   );
 }

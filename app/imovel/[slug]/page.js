@@ -3,9 +3,8 @@ import { getImovelBySlug, getAllSlugs } from '@/lib/supabase';
 import Header from '@/components/Header';
 import ImovelGaleria from '@/components/ImovelGaleria';
 import ImovelSpecs from '@/components/ImovelSpecs';
-import LeadForm from '@/components/LeadForm';
+import ImovelSidebarClient from '@/components/ImovelSidebarClient';
 import Footer from '@/components/Footer';
-import WhatsAppFab from '@/components/WhatsAppFab';
 import Link from 'next/link';
 import { formatPreco } from '@/lib/utils';
 
@@ -88,30 +87,13 @@ export default async function ImovelPage({ params }) {
                 )}
               </div>
 
-              {/* Direita: Sidebar com Formulário */}
-              <aside className="imovel-sidebar">
-                <div className="imovel-sidebar-inner">
-                  <div className="imovel-price-box">
-                    <span className="price-label">Valor de venda</span>
-                    <div className="price-value text-gold">{formatPreco(imovel.preco)}</div>
-                    <p className="price-sub">Negociação direta com o proprietário</p>
-                  </div>
-
-                  <div className="form-box">
-                    <div className="form-header">
-                      <h3>Tenho Interesse</h3>
-                      <p>Preencha para receber mais detalhes ou agendar uma visita.</p>
-                    </div>
-                    <LeadForm imovelTitulo={`${imovel.titulo} — ${formatPreco(imovel.preco)}`} />
-                  </div>
-                </div>
-              </aside>
+              {/* Direita: Sidebar com Preço e Acesso ao Modal */}
+              <ImovelSidebarClient imovel={imovel} />
             </div>
           </div>
         </section>
       </main>
       <Footer />
-      <WhatsAppFab />
     </>
   );
 }

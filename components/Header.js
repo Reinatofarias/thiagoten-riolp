@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { CONFIG } from '@/lib/utils';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -19,13 +20,22 @@ export default function Header() {
           <div className="logo-icon">
             <img src="/images/Logo.PNG" alt="Thiago Tenório Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </div>
-          <div className="logo-text">
-            <span className="logo-name">Thiago Tenório</span>
-            <span className="logo-subtitle">Corretor de Imóveis</span>
+          <div className="logo-signature-wrapper">
+            <img src="/images/assinatura.png" alt="Assinatura Thiago Tenório" className="logo-signature" />
           </div>
         </Link>
-        <a href="#formulario" className="btn btn-primary header-cta">Fale Comigo</a>
+
+
+        <a 
+          href={`https://wa.me/${CONFIG.WHATSAPP_NUMBER}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="btn btn-primary header-cta"
+        >
+          Fale Comigo
+        </a>
       </div>
     </header>
   );
 }
+

@@ -32,10 +32,13 @@ export default function ImovelGaleria({ imagens, titulo }) {
     <div className="galeria">
       <div className="galeria-main">
         <img
+          key={imagens[activeIndex]}
           src={imagens[activeIndex]}
           alt={`${titulo} — Foto ${activeIndex + 1}`}
           loading="eager"
+          className="fade-in-image"
         />
+
         {imagens.length > 1 && (
           <>
             <button className="galeria-nav galeria-prev" onClick={() => goTo(activeIndex - 1)} aria-label="Foto anterior">

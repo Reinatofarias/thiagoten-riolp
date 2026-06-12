@@ -31,7 +31,7 @@ export default function AdminLayout({ children }) {
   };
 
   if (loading) {
-    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f1115', color: '#E3AE45' }}>Carregando...</div>;
+    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0c10', color: '#e3af45', fontFamily: 'Cinzel, serif', letterSpacing: '1px' }}>Carregando...</div>;
   }
 
   // Se for a página de login, renderiza sem o layout do admin (sidebar/header)
@@ -42,38 +42,41 @@ export default function AdminLayout({ children }) {
   if (!user) return null;
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0f1115', color: '#f4f4f5' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#0a0c10', color: '#f4f4f5' }}>
       {/* Sidebar */}
-      <aside style={{ width: '250px', background: '#1a1d24', borderRight: '1px solid rgba(255,255,255,0.05)', padding: '20px', display: 'flex', flexDirection: 'column' }}>
+      <aside style={{ width: '250px', background: '#12151b', borderRight: '1px solid rgba(227, 174, 69, 0.12)', padding: '24px', display: 'flex', flexDirection: 'column' }}>
         <div style={{ marginBottom: '40px' }}>
-          <h2 style={{ fontFamily: 'Playfair Display, serif', color: '#E3AE45', fontSize: '1.25rem' }}>Painel Admin</h2>
-          <span style={{ fontSize: '0.75rem', color: '#a1a1aa' }}>Thiago Tenório Imóveis</span>
+          <h2 style={{ fontFamily: 'Playfair Display, serif', color: '#e3af45', fontSize: '1.4rem', fontWeight: '700' }}>Painel Admin</h2>
+          <span style={{ fontSize: '0.75rem', color: '#a1a1aa', fontFamily: 'Cinzel, serif', letterSpacing: '1px' }}>Thiago Tenório Imóveis</span>
         </div>
 
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}>
-          <Link href="/admin" style={{ padding: '10px 15px', background: pathname === '/admin' ? 'rgba(227, 174, 69, 0.1)' : 'transparent', color: pathname === '/admin' ? '#E3AE45' : '#a1a1aa', borderRadius: '8px', textDecoration: 'none', transition: 'all 0.3s' }}>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
+          <Link href="/admin" style={{ padding: '12px 18px', background: pathname === '/admin' ? 'rgba(227, 174, 69, 0.08)' : 'transparent', color: pathname === '/admin' ? '#e3af45' : '#a1a1aa', border: pathname === '/admin' ? '1px solid rgba(227, 174, 69, 0.2)' : '1px solid transparent', borderRadius: '8px', textDecoration: 'none', transition: 'all 0.3s ease', fontWeight: '500' }}>
             Meus Imóveis
           </Link>
-          <Link href="/admin/novo" style={{ padding: '10px 15px', background: pathname === '/admin/novo' ? 'rgba(227, 174, 69, 0.1)' : 'transparent', color: pathname === '/admin/novo' ? '#E3AE45' : '#a1a1aa', borderRadius: '8px', textDecoration: 'none', transition: 'all 0.3s' }}>
+          <Link href="/admin/novo" style={{ padding: '12px 18px', background: pathname === '/admin/novo' ? 'rgba(227, 174, 69, 0.08)' : 'transparent', color: pathname === '/admin/novo' ? '#e3af45' : '#a1a1aa', border: pathname === '/admin/novo' ? '1px solid rgba(227, 174, 69, 0.2)' : '1px solid transparent', borderRadius: '8px', textDecoration: 'none', transition: 'all 0.3s ease', fontWeight: '500' }}>
             Adicionar Imóvel
           </Link>
-          <Link href="/" target="_blank" style={{ padding: '10px 15px', color: '#a1a1aa', textDecoration: 'none' }}>
+          <Link href="/" target="_blank" style={{ padding: '12px 18px', color: '#a1a1aa', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.3s' }} onMouseEnter={(e) => e.target.style.color = '#e3af45'} onMouseLeave={(e) => e.target.style.color = '#a1a1aa'}>
             Ver Site Público ↗
           </Link>
         </nav>
 
         <button 
           onClick={handleSignOut}
-          style={{ padding: '10px', background: 'transparent', border: '1px solid #ef4444', color: '#ef4444', borderRadius: '8px', cursor: 'pointer' }}
+          style={{ padding: '12px', background: 'transparent', border: '1px solid #ef4444', color: '#ef4444', borderRadius: '8px', cursor: 'pointer', fontFamily: 'Cinzel, serif', letterSpacing: '1.5px', fontSize: '0.8rem', fontWeight: '600', transition: 'all 0.3s' }}
+          onMouseEnter={(e) => { e.target.style.background = '#ef4444'; e.target.style.color = '#fff'; }}
+          onMouseLeave={(e) => { e.target.style.background = 'transparent'; e.target.style.color = '#ef4444'; }}
         >
           Sair
         </button>
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, padding: '40px', overflowY: 'auto' }}>
+      <main style={{ flex: 1, padding: '40px', overflowY: 'auto', background: '#0a0c10' }}>
         {children}
       </main>
     </div>
   );
+
 }

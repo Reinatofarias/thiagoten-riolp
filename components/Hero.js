@@ -31,15 +31,8 @@ export default function Hero() {
           <br /><strong>Em até 90 dias, as chaves estão na sua mão.</strong>
         </p>
 
-        <div className="hero-signature" style={{ marginBottom: '30px', textAlign: 'left' }}>
-          <img 
-            src="/images/assinatura.png" 
-            alt="Assinatura Thiago Tenório" 
-            style={{ maxHeight: '80px', objectFit: 'contain', opacity: 0.9 }} 
-          />
-        </div>
-
         <div className="hero-cta-group">
+
           <a href="#formulario" className="btn btn-primary btn-lg">
             Quero Meu Imóvel Agora
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
