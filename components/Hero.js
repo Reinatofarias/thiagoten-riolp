@@ -16,10 +16,6 @@ export default function Hero() {
       <div className="hero-overlay"></div>
 
       <div className="hero-content">
-        <div className="hero-badge">
-          <span>Corretor Especializado em Recife e Região</span>
-        </div>
-
         <h1>
           Seu Imóvel Próprio<br />
           <em>Sem Burocracia, Sem Dor de Cabeça</em>
