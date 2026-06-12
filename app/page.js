@@ -1,7 +1,6 @@
 import { getImoveisDestaque } from '@/lib/supabase';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Diferenciais from '@/components/Diferenciais';
 import Processo from '@/components/Processo';
 import ImoveisGrid from '@/components/ImoveisGrid';
 import Footer from '@/components/Footer';
@@ -16,7 +15,6 @@ export default async function Home() {
       <Header />
       <main>
         <Hero />
-        <Diferenciais />
         <Processo />
         <ImoveisGrid imoveis={imoveis} />
       </main>
@@ -24,4 +22,5 @@ export default async function Home() {
     </>
   );
 }
+
 
