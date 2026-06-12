@@ -12,7 +12,8 @@ import { formatPreco } from '@/lib/utils';
 export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
-  const imovel = await getImovelBySlug(params.slug);
+  const { slug } = await params;
+  const imovel = await getImovelBySlug(slug);
   if (!imovel) return { title: 'Imóvel não encontrado' };
 
   return {
@@ -22,7 +23,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ImovelPage({ params }) {
-  const imovel = await getImovelBySlug(params.slug);
+  const { slug } = await params;
+  const imovel = await getImovelBySlug(slug);
 
   if (!imovel) {
     notFound();
