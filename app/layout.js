@@ -34,6 +34,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-NQ4W72KH';
+  const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-18232289198';
 
   return (
     <html lang="pt-BR">
@@ -48,6 +49,23 @@ export default function RootLayout({ children }) {
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
               })(window,document,'script','dataLayer','${gtmId}');
+            `,
+          }}
+        />
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-ads-tag"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${googleAdsId}');
             `,
           }}
         />
