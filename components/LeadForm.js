@@ -86,9 +86,29 @@ export default function LeadForm({ imovelTitulo = '' }) {
     setSuccess(true);
     setLoading(false);
 
-    // 4. Redirect WhatsApp
+    const whatsappUrl = getWhatsAppUrl(payload);
+
+    // Push event to GTM dataLayer
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'whatsapp_redirect',
+        whatsapp_url: whatsappUrl,
+        lead_nome: payload.nome,
+        lead_cidade: payload.cidade,
+        lead_imovel: payload.imovel || 'Geral'
+      });
+    }
+
+    // 4. Redirect WhatsApp using a temporary anchor element (so GTM Link Click trigger captures it)
     setTimeout(() => {
-      window.open(getWhatsAppUrl(payload), '_blank');
+      const link = document.createElement('a');
+      link.href = whatsappUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }, 800);
   };
 
@@ -173,7 +193,13 @@ export default function LeadForm({ imovelTitulo = '' }) {
       </div>
 
       {/* Submit */}
-      <button type="submit" id="btn-submit" className={`btn btn-primary btn-submit ${loading ? 'loading' : ''}`} disabled={!isFormValid() || loading}>
+      <button 
+        type="submit" 
+        id="btn-submit" 
+        className={`btn btn-primary btn-submit ${loading ? 'loading' : ''}`} 
+        disabled={!isFormValid() || loading}
+        data-href={getWhatsAppUrl({ ...formData, imovel: imovelTitulo })}
+      >
         <span className="btn-text">Quero Ser Atendido Agora →</span>
         {loading && <span className="btn-loader" aria-hidden="true"></span>}
       </button>
