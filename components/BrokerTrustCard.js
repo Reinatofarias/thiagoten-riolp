@@ -39,12 +39,12 @@ export default function BrokerTrustCard({ imovelTitulo = '' }) {
             Atendimento Direto
           </span>
           <h3>Thiago Tenório</h3>
-          <p className="broker-role">Corretor Especialista | CRECI PE 15.432-F</p>
+          <p className="broker-role">Corretor de Imóveis | CRECI 21969</p>
+          <p className="broker-bio" style={{ marginBottom: '12px' }}>
+            Com mais de 15 anos de experiência no mercado imobiliário, Thiago Tenório, CRECI 21969, atua em toda a Região Metropolitana, oferecendo uma curadoria especializada de imóveis para diferentes perfis de clientes, desde opções mais acessíveis até imóveis de alto padrão.
+          </p>
           <p className="broker-bio">
-            Com mais de 10 anos de experiência no mercado de alto padrão em Recife e região, 
-            ofereço uma curadoria personalizada e consultoria jurídica ponta a ponta 
-            para garantir que a busca e a compra do seu imóvel ideal aconteçam de forma leve, 
-            segura e sem nenhuma complicação burocrática.
+            Seu trabalho é pautado pela transparência, segurança e acompanhamento completo em cada etapa da negociação. Da escolha do imóvel ideal à orientação sobre documentação e processos burocráticos, conduz seus clientes com responsabilidade e atenção aos detalhes, tornando a compra ou venda de um imóvel uma experiência mais segura, tranquila e eficiente.
           </p>
           
           <a 
