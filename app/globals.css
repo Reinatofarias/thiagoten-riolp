@@ -2179,6 +2179,126 @@ h3 { font-size: 1.6rem; }
   }
 }
 
+/* =========================================
+   BROKER TRUST CARD & PROFILE GRID
+   ========================================= */
+.broker-trust-card {
+  padding: 32px !important;
+  margin-top: 32px;
+}
+
+.broker-profile-grid {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.broker-image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  padding: 3px;
+  background: var(--gold-gradient);
+}
+
+.broker-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--bg-card);
+}
+
+.broker-badge-active {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: var(--success);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 2px solid var(--bg-card);
+}
+
+.broker-info-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+  color: var(--text-light);
+}
+
+.broker-role {
+  font-size: 0.85rem;
+  color: var(--gold-main);
+  font-family: var(--font-accent);
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.broker-bio {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.broker-whatsapp-btn {
+  transition: var(--transition);
+}
+
+.broker-whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--gold-glow);
+}
+
+/* =========================================
+   MOBILE STICKY CTA BAR
+   ========================================= */
+.mobile-sticky-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 24px;
+  z-index: 1000;
+  display: none;
+  border-top: 1px solid var(--border-glass);
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.4);
+  background: rgba(10, 12, 16, 0.92);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+.mobile-sticky-cta-btn {
+  box-shadow: 0 4px 15px rgba(227, 174, 69, 0.3);
+}
+
+@media (max-width: 768px) {
+  .mobile-sticky-cta-bar {
+    display: block;
+  }
+  
+  /* Add padding-bottom to the main page container on mobile so content doesn't get covered by the sticky bar */
+  .imovel-page {
+    padding-bottom: 80px;
+  }
+  
+  .broker-profile-grid {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .broker-image-wrapper {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+
 
 
 

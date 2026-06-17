@@ -34,21 +34,34 @@ export default function ImovelSidebarClient({ imovel }) {
   };
 
   return (
-    <aside className="imovel-sidebar">
-      <div className="imovel-sidebar-inner">
-        <div className="imovel-price-box">
-          <span className="price-label">Condições de Venda</span>
-          <div className="price-value text-gold" style={{ fontSize: '1.6rem', margin: '8px 0', fontWeight: '700' }}>Preço Sob Consulta</div>
-          <p className="price-sub" style={{ fontSize: '0.85rem' }}>Financiamento Facilitado & Negociação Direta</p>
-          
-          <button 
-            onClick={toggleModal} 
-            className="btn btn-primary" 
-            style={{ width: '100%', marginTop: '24px' }}
-          >
-            Falar com o Corretor Agora →
-          </button>
+    <>
+      <aside className="imovel-sidebar">
+        <div className="imovel-sidebar-inner">
+          <div className="imovel-price-box">
+            <span className="price-label">Condições de Venda</span>
+            <div className="price-value text-gold" style={{ fontSize: '1.6rem', margin: '8px 0', fontWeight: '700' }}>Preço Sob Consulta</div>
+            <p className="price-sub" style={{ fontSize: '0.85rem' }}>Financiamento Facilitado & Negociação Direta</p>
+            
+            <button 
+              onClick={toggleModal} 
+              className="btn btn-primary" 
+              style={{ width: '100%', marginTop: '24px' }}
+            >
+              Falar com o Corretor Agora →
+            </button>
+          </div>
         </div>
+      </aside>
+
+      {/* Barra Fixa Flutuante no Mobile */}
+      <div className="mobile-sticky-cta-bar">
+        <button 
+          onClick={toggleModal} 
+          className="btn btn-primary mobile-sticky-cta-btn" 
+          style={{ width: '100%' }}
+        >
+          Falar com o Corretor Agora →
+        </button>
       </div>
 
       {isModalOpen && mounted && createPortal(
@@ -74,6 +87,6 @@ export default function ImovelSidebarClient({ imovel }) {
         </div>,
         document.body
       )}
-    </aside>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import ImovelGaleria from '@/components/ImovelGaleria';
 import ImovelSpecs from '@/components/ImovelSpecs';
 import ImovelSidebarClient from '@/components/ImovelSidebarClient';
+import BrokerTrustCard from '@/components/BrokerTrustCard';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { formatPreco } from '@/lib/utils';
@@ -111,6 +112,9 @@ export default async function ImovelPage({ params }) {
                     </ul>
                   </div>
                 )}
+
+                {/* Cartão de Confiança com o Corretor */}
+                <BrokerTrustCard imovelTitulo={imovel.titulo} />
               </div>
 
               {/* Direita: Sidebar com Preço e Acesso ao Modal */}
