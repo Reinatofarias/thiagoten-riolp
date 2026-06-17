@@ -15,8 +15,7 @@ export async function generateMetadata({ params }) {
   const imovel = await getImovelBySlug(slug);
   if (!imovel) return { title: 'Imóvel não encontrado' };
 
-  const formattedPrice = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 }).format(imovel.preco);
-  const title = `${imovel.titulo} — ${formattedPrice}`;
+  const title = `${imovel.titulo} — Thiago Tenório Corretor`;
   const description = `${imovel.tipo} no bairro ${imovel.bairro || 'Recife'}. ${imovel.subtitulo || ''} ${imovel.descricao ? imovel.descricao.substring(0, 150) + '...' : ''}`;
   const firstImage = imovel.imagens && imovel.imagens.length > 0 ? imovel.imagens[0] : '/images/share-preview.png';
 

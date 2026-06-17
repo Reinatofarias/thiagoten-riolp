@@ -15,7 +15,7 @@ export default function ImovelCard({ imovel }) {
       <div className="imovel-card-body">
         <h3>{imovel.titulo}</h3>
         <p className="imovel-card-subtitle">{imovel.subtitulo}</p>
-        <div className="imovel-card-price">{formatPreco(imovel.preco)}</div>
+        <div className="imovel-card-price">Sob Consulta</div>
         <div className="imovel-card-specs">
           <span title="Quartos">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/><path d="M21 7H3l2-4h14l2 4z"/><path d="M12 4v3"/></svg>

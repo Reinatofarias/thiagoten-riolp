@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { validateField, sendToWebhook, getWhatsAppUrl, CONFIG } from '@/lib/utils';
 
 export default function LeadForm({ imovelTitulo = '' }) {
-  const [formData, setFormData] = useState({ nome: '', telefone: '', cidade: '' });
-  const [errors, setErrors] = useState({ nome: '', telefone: '', cidade: '' });
-  const [touched, setTouched] = useState({ nome: false, telefone: false, cidade: false });
+  const [formData, setFormData] = useState({ nome: '', telefone: '' });
+  const [errors, setErrors] = useState({ nome: '', telefone: '' });
+  const [touched, setTouched] = useState({ nome: false, telefone: false });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -48,8 +48,7 @@ export default function LeadForm({ imovelTitulo = '' }) {
   const isFormValid = () => {
     const nomeError = validateField('nome', formData.nome);
     const telefoneError = validateField('telefone', formData.telefone);
-    const cidadeError = validateField('cidade', formData.cidade);
-    return !nomeError && !telefoneError && !cidadeError && formData.nome && formData.telefone && formData.cidade;
+    return !nomeError && !telefoneError && formData.nome && formData.telefone;
   };
 
   const handleSubmit = async (e) => {
@@ -62,12 +61,11 @@ export default function LeadForm({ imovelTitulo = '' }) {
     const newErrors = {
       nome: validateField('nome', formData.nome),
       telefone: validateField('telefone', formData.telefone),
-      cidade: validateField('cidade', formData.cidade),
     };
     setErrors(newErrors);
-    setTouched({ nome: true, telefone: true, cidade: true });
+    setTouched({ nome: true, telefone: true });
 
-    if (newErrors.nome || newErrors.telefone || newErrors.cidade) return;
+    if (newErrors.nome || newErrors.telefone) return;
 
     setLoading(true);
 
@@ -95,7 +93,7 @@ export default function LeadForm({ imovelTitulo = '' }) {
         event: 'whatsapp_redirect',
         whatsapp_url: whatsappUrl,
         lead_nome: payload.nome,
-        lead_cidade: payload.cidade,
+        lead_cidade: '',
         lead_imovel: payload.imovel || 'Geral'
       });
     }
@@ -174,24 +172,6 @@ export default function LeadForm({ imovelTitulo = '' }) {
         <span className="error-msg" role="alert" aria-live="polite">{errors.telefone}</span>
       </div>
 
-      {/* Cidade */}
-      <div className={`form-group floating-group ${touched.cidade ? (errors.cidade ? 'invalid-group' : 'valid-group') : ''}`}>
-        <input
-          type="text"
-          id="input-cidade"
-          name="cidade"
-          placeholder=" "
-          value={formData.cidade}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          required
-          autoComplete="address-level2"
-          className={touched.cidade ? (errors.cidade ? 'invalid' : 'valid') : ''}
-        />
-        <label htmlFor="input-cidade">Sua Cidade</label>
-        <span className="error-msg" role="alert" aria-live="polite">{errors.cidade}</span>
-      </div>
-
       {/* Submit */}
       <button 
         type="submit" 
@@ -200,7 +180,7 @@ export default function LeadForm({ imovelTitulo = '' }) {
         disabled={!isFormValid() || loading}
         data-href={getWhatsAppUrl({ ...formData, imovel: imovelTitulo })}
       >
-        <span className="btn-text">Quero Ser Atendido Agora →</span>
+        <span className="btn-text">Falar com o Corretor no WhatsApp →</span>
         {loading && <span className="btn-loader" aria-hidden="true"></span>}
       </button>
 

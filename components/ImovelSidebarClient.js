@@ -37,16 +37,16 @@ export default function ImovelSidebarClient({ imovel }) {
     <aside className="imovel-sidebar">
       <div className="imovel-sidebar-inner">
         <div className="imovel-price-box">
-          <span className="price-label">Valor de venda</span>
-          <div className="price-value text-gold">{formatPreco(imovel.preco)}</div>
-          <p className="price-sub">Negociação direta com o corretor</p>
+          <span className="price-label">Condições de Venda</span>
+          <div className="price-value text-gold" style={{ fontSize: '1.6rem', margin: '8px 0', fontWeight: '700' }}>Preço Sob Consulta</div>
+          <p className="price-sub" style={{ fontSize: '0.85rem' }}>Financiamento Facilitado & Negociação Direta</p>
           
           <button 
             onClick={toggleModal} 
             className="btn btn-primary" 
             style={{ width: '100%', marginTop: '24px' }}
           >
-            Consultar Disponibilidade →
+            Falar com o Corretor Agora →
           </button>
         </div>
       </div>
@@ -63,10 +63,10 @@ export default function ImovelSidebarClient({ imovel }) {
             <div className="form-header" style={{ marginBottom: '24px', textAlign: 'center' }}>
               <span className="section-label" style={{ fontSize: '0.7rem' }}>Atendimento Premium</span>
               <h2 style={{ fontSize: '1.6rem', marginTop: '12px', marginBottom: '8px', fontFamily: 'var(--font-heading)' }}>
-                Tenho Interesse
+                Falar com o Corretor
               </h2>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                Preencha para consultar a disponibilidade do imóvel <br /><strong>{imovel.titulo}</strong>
+                Preencha os dados rápidos abaixo para consultar o valor e as condições do imóvel <br /><strong>{imovel.titulo}</strong>
               </p>
             </div>
             <LeadForm imovelTitulo={`${imovel.titulo} — ${formatPreco(imovel.preco)}`} />
