@@ -8,6 +8,7 @@ import BrokerTrustCard from '@/components/BrokerTrustCard';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { formatPreco } from '@/lib/utils';
+import JsonLd from '@/components/JsonLd';
 
 export const revalidate = 0;
 
@@ -56,8 +57,37 @@ export default async function ImovelPage({ params }) {
     notFound();
   }
 
+  const imovelSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SingleFamilyResidence',
+    'name': imovel.titulo,
+    'description': imovel.descricao || imovel.subtitulo || '',
+    'image': imovel.imagens || [],
+    'address': {
+      '@type': 'PostalAddress',
+      'streetAddress': imovel.endereco || '',
+      'addressLocality': imovel.bairro || 'Recife',
+      'addressRegion': 'PE',
+      'addressCountry': 'BR'
+    },
+    'numberOfRooms': imovel.quartos || undefined,
+    'numberOfBathroomsTotal': imovel.banheiros || undefined,
+    'floorSize': imovel.area ? {
+      '@type': 'QuantitativeValue',
+      'value': imovel.area,
+      'unitCode': 'MTK'
+    } : undefined,
+    'offers': {
+      '@type': 'Offer',
+      'price': imovel.preco,
+      'priceCurrency': 'BRL',
+      'availability': 'https://schema.org/InStock'
+    }
+  };
+
   return (
     <>
+      <JsonLd schema={imovelSchema} />
       <Header />
       <main className="imovel-page">
         {/* Breadcrumb */}

@@ -17,6 +17,16 @@ export default function Footer() {
             </Link>
           </div>
 
+          <div className="footer-nav" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--gold-main)', fontWeight: '600', marginBottom: '4px' }}>
+              Navegação
+            </span>
+            <Link href="/sobre" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Quem Sou</Link>
+            <Link href="/como-funciona" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Como Funciona</Link>
+            <Link href="/imoveis" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Buscar Imóveis</Link>
+            <Link href="/financiamento" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Financiamento</Link>
+            <Link href="/contato" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Contato</Link>
+          </div>
 
           <div className="footer-contact">
             <a href={`https://wa.me/${CONFIG.WHATSAPP_NUMBER}`} className="footer-contact-item" target="_blank" rel="noopener noreferrer">
