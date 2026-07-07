@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { validateField, sendToWebhook, getWhatsAppUrl, CONFIG } from '@/lib/utils';
+import { validateField, sendToWebhook, getWhatsAppUrl, CONFIG, applyPhoneMask } from '@/lib/utils';
 
 export default function LeadForm({ imovelTitulo = '' }) {
   const [formData, setFormData] = useState({ nome: '', telefone: '' });
@@ -14,16 +14,7 @@ export default function LeadForm({ imovelTitulo = '' }) {
   const [website, setWebsite] = useState('');
 
   const handleMask = (e) => {
-    let value = e.target.value.replace(/\D/g, '');
-    value = value.substring(0, 11);
-
-    if (value.length > 6) {
-      value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
-    } else if (value.length > 2) {
-      value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
-    } else if (value.length > 0) {
-      value = `(${value}`;
-    }
+    const value = applyPhoneMask(e.target.value);
 
     setFormData({ ...formData, telefone: value });
     if (touched.telefone) {
