@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { formatPreco } from '@/lib/utils';
 import LeadForm from './LeadForm';
 
 export default function ImovelSidebarClient({ imovel }) {
@@ -82,7 +81,7 @@ export default function ImovelSidebarClient({ imovel }) {
                 Preencha os dados rápidos abaixo para consultar o valor e as condições do imóvel <br /><strong>{imovel.titulo}</strong>
               </p>
             </div>
-            <LeadForm imovelTitulo={`${imovel.titulo} — ${formatPreco(imovel.preco)}`} />
+            <LeadForm imovelTitulo={imovel.titulo} />
           </div>
         </div>,
         document.body
