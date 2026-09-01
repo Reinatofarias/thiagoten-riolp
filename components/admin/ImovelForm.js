@@ -71,22 +71,40 @@ export default function ImovelForm({ initialData = null }) {
     setFormData(prev => ({ ...prev, preco: numericValue }));
   };
 
+  const [uploadProgress, setUploadProgress] = useState('');
+
   const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
 
     setUploadingImage(true);
     setError(null);
 
-    const { url, error } = await uploadImage(file);
-    
-    if (error) {
-      setError('Erro ao enviar imagem: ' + error.message);
-    } else if (url) {
-      setFormData(prev => ({ ...prev, imagens: [...prev.imagens, url] }));
+    const errors = [];
+    const urls = [];
+
+    for (let i = 0; i < files.length; i++) {
+      setUploadProgress(`${i + 1}/${files.length}`);
+      const { url, error } = await uploadImage(files[i]);
+      if (error) {
+        errors.push(`${files[i].name}: ${error.message}`);
+      } else if (url) {
+        urls.push(url);
+      }
     }
-    
+
+    if (urls.length > 0) {
+      setFormData(prev => ({ ...prev, imagens: [...prev.imagens, ...urls] }));
+    }
+
+    if (errors.length > 0) {
+      setError(`Erro em ${errors.length} imagem(ns): ${errors[0]}`);
+    }
+
+    setUploadProgress('');
     setUploadingImage(false);
+    // Reset file input so the same files can be selected again
+    e.target.value = '';
   };
 
   const removeImage = (indexToRemove) => {
@@ -361,16 +379,17 @@ export default function ImovelForm({ initialData = null }) {
           
           <label className="admin-upload-trigger">
             {uploadingImage ? (
-              <span className="text">Enviando...</span>
+              <span className="text">Enviando {uploadProgress}...</span>
             ) : (
               <>
                 <span className="icon">+</span>
-                <span className="text">Adicionar</span>
+                <span className="text">Adicionar Fotos</span>
               </>
             )}
             <input 
               type="file" 
               accept="image/*" 
+              multiple
               onChange={handleImageUpload} 
               style={{ display: 'none' }} 
               disabled={uploadingImage} 
